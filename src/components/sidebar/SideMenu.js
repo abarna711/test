@@ -39,10 +39,10 @@ function SideMenu() {
               <RiArrowRightDoubleFill/><Link to="admin/catalog/categories">Categories</Link>
               </li>
               <li>
-              <RiArrowRightDoubleFill/><Link to="/catalog/product">Product</Link>
+              <RiArrowRightDoubleFill/><Link to="admin/catalog/product">Product</Link>
               </li>
               <li>
-              <RiArrowRightDoubleFill/><Link to="/catalog/filters">Filters</Link>
+              <RiArrowRightDoubleFill/><Link to="admin/catalog/filters">Filters</Link>
               </li>
             </ul>
           )}

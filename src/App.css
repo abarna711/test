@@ -13,8 +13,16 @@
 .admin img{
   border-radius: 20px;
 }
-/* .admin .text{
-  color: rgb(82, 82, 180);
-} */
+ 
 
-/* app.css */
+/* login */
+.login{
+
+  background-color: rgb(17, 16, 16,.6);
+  width: 40%;
+  color: white;
+}
+.login h2{
+  align-items: center;
+
+}

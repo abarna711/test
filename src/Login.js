@@ -16,27 +16,27 @@ const Login = ({ onLogin }) => {
   };
 
   return (
-    <div className="login-container">
+    <div className="login container-fulid" style={{marginLeft:"28%",marginTop:"10%",paddingLeft:"150px",paddingTop:"50px",paddingBottom:"50px"}}>
       <h2>Login</h2>
       <form>
         <label>
-          Username:
+          Username:<br/>
           <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
         </label>
-        <br />
+        <br /><br/>
         <label>
-          Password:
+          Password:<br/>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        <br />
+        <br /><br/>
         <button type="button" onClick={handleLogin}>
           Login
         </button>

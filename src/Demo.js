@@ -35,7 +35,9 @@ function Categories() {
     <div className="categories">
       <div className="container">
         <div className="row">
-            <div className="form">
+          <div className="col-sm-8">
+            <div className="form-row row">
+              <div className="col">
                 <input
                   type="text"
                   onChange={handleChange}
@@ -44,6 +46,8 @@ function Categories() {
                   className="form-control"
                   placeholder="Category"
                 />
+              </div>
+              <div className="col">
                 <input
                   type="text"
                   onChange={handleChange}
@@ -52,13 +56,27 @@ function Categories() {
                   className="form-control"
                   placeholder="Subcategory"
                 />
-                
+              </div>
+              <div className="col">
+                <input
+                  type="text"
+                  onChange={handleChange}
+                  value={formInputData.discription}
+                  name="discription"
+                  className="form-control"
+                  placeholder="Description"
+                />
+              </div>
+              <div className="col">
                 <input type="submit" onClick={handleSubmit} className="btn btn-primary" />
+              </div>
             </div>
             <Table tableData={tableData} handleDelete={handleDelete} />
           </div>
+          <div className="col-sm-4"></div>
         </div>
       </div>
+    </div>
   );
 }
 

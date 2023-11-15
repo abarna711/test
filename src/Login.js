@@ -1,43 +1,62 @@
-// Login.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaRegUser } from "react-icons/fa";
+import { IoIosLock } from "react-icons/io";
 
 const Login = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
- const navigate = useNavigate();
-  const handleLogin = () => {
-    
-    if (username === 'demo' && password === 'password') {
-      navigate('/admin')
+  const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    if (validateInput(username, password)) {
+  
+      if (username === 'demo' && password === 'password') {
+        navigate('/admin');
+      } else {
+        setErrorMessage('Invalid credentials. Please try again.');
+      }
     } else {
-      alert('Invalid credentials. Please try again.');
+      setErrorMessage('Invalid input. Please enter a valid username and password.');
     }
   };
 
+  const validateInput = (username, password) => {
+    return username.trim() !== '' && password.trim() !== '';
+  };
+
   return (
-    <div className="login container-fulid" style={{marginLeft:"28%",marginTop:"10%",paddingLeft:"150px",paddingTop:"50px",paddingBottom:"50px"}}>
-      <h2>Login</h2>
-      <form>
+    <div className="login container-fluid">
+
+      <form onSubmit={handleLogin}>
+       <p><IoIosLock className='me-1 mb-1'/>Please Enter Your Login Details</p>
+        <hr></hr>
         <label>
-          Username:<br/>
+        <FaRegUser className='me-1' />
+           Username:<br/>
           <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            placeholder='Username'
           />
         </label>
-        <br /><br/>
+        <br /><br />
         <label>
-          Password:<br/>
+        <IoIosLock /> Password:<br />
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            placeholder='Password'
           />
         </label>
-        <br /><br/>
-        <button type="button" onClick={handleLogin}>
+        <br /><br />
+        {errorMessage && <div className="error-message" style={{color:"red",marginLeft:"65px"}}>{errorMessage}</div>}
+        <button type="submit" className='btn'>
           Login
         </button>
       </form>

@@ -1,7 +1,7 @@
 .Categories{
     height: 1000px;
-padding: 40px;
-margin-top: -16px;
+    padding: 40px;
+    margin-top: -16px;
     text-align: center;
     background-color: rgb(245, 245, 245);
   }
@@ -12,7 +12,7 @@ margin-top: -16px;
 }
 .CategoriesTop{
     height: 70px;
-background-color: rgba(255, 255, 255, 0.599);
+    background-color: rgba(255, 255, 255, 0.599);
     width: 98%;
     text-align: left;
     font-weight:100 ;
@@ -24,22 +24,21 @@ background-color: rgba(255, 255, 255, 0.599);
     border: 1px solid rgb(219, 219, 219) ;
 }
 .CategoriesInputfield{
-   float: left;
     border: 2px solid rgb(219, 219, 219);
     border-radius: 4px;
     height: 20px;
    margin-top: 20px;
    width: 30%;
    padding:6px;
-   margin-right:350px ;
-   margin-left: 350px;
+   /* margin-right:350px ; */
+   /* margin-left: 350px; */
 }
 .CategoriesInput{
    
-height: 200px;
-    width:100%;
-  font-weight: 500;
-color: black;
+    height: 200px;
+    width:50%;
+    font-weight: 500;
+    color: black;
     font-size: 15px;
     border: 1px solid rgb(219, 219, 219);
 
@@ -49,7 +48,7 @@ color: black;
     color: white;
     border-radius: 5px;
     height: 40px;
-width: 40%;
+    width: 40%;
     border: none;
 
    }
@@ -61,11 +60,10 @@ width: 40%;
    .CategoriesUpdatebutton{
     background-color: rgb(5, 25, 40);
     color: white;
-        border-radius: 5px;
-      
-        height: 40px;
+    border-radius: 5px;
+    height: 40px;
     width: 40%;
-        border: none;
+    border: none;
    }
    .CategoriesUpdatebutton:hover{
     color: rgb(5, 25, 40);
@@ -93,8 +91,8 @@ width: 40%;
     height: 40px;
     border: none;
     margin-left: 10px;
-  width: 40%;
-  margin-bottom: 3px;
+    width: 40%;
+    margin-bottom: 3px;
  
    }
    .CategoriesDeleteSelectedButton:hover{
@@ -108,7 +106,8 @@ width: 40%;
     border-collapse: collapse;
     border-top: 1px solid rgb(219, 219, 219);
     border-bottom: 1px solid rgb(219, 219, 219);
-margin-top: 100px;
+    margin-top: 100px;
+/* border: 1px solid black; */
 
 }
 

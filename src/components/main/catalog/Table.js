@@ -1,4 +1,5 @@
 import React from "react";
+import "./Categories.css";
 
 function Table({ tableData, handleDelete }) {
   return (
@@ -8,7 +9,6 @@ function Table({ tableData, handleDelete }) {
           <th>S.N</th>
           <th>Category</th>
           <th>Subcategory</th>
-          <th>Description</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -18,7 +18,6 @@ function Table({ tableData, handleDelete }) {
             <td>{index + 1}</td>
             <td>{data.category}</td>
             <td>{data.subcategory}</td>
-            <td>{data.discription}</td>
             <td>
               <button
                 className="btn btn-danger btn-sm"
@@ -35,8 +34,3 @@ function Table({ tableData, handleDelete }) {
 }
 
 export default Table;
-
-
-
-
-

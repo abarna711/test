@@ -1,3 +1,5 @@
+// frontend/Categories.js
+
 import React, { useState } from "react";
 import Table from "./Table";
 
@@ -6,7 +8,6 @@ function Categories() {
   const [formInputData, setFormInputData] = useState({
     category: "",
     subcategory: "",
-    discription: "",
   });
 
   const handleChange = (evnt) => {
@@ -14,14 +15,29 @@ function Categories() {
     setFormInputData(newInput);
   };
 
-  const handleSubmit = (evnt) => {
+  const handleSubmit = async (evnt) => {
     evnt.preventDefault();
     const checkEmptyInput = !Object.values(formInputData).every((res) => res === "");
     if (checkEmptyInput) {
-      const newData = [...tableData, formInputData];
-      setTableData(newData);
-      const emptyInput = { category: "", subcategory: "", discription: "" };
-      setFormInputData(emptyInput);
+      try {
+        const response = await fetch('http://localhost:3001/api/categories', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formInputData),
+        });
+        if (response.ok) {
+          const newData = [...tableData, formInputData];
+          setTableData(newData);
+          const emptyInput = { category: "", subcategory: "" };
+          setFormInputData(emptyInput);
+        } else {
+          console.error('Failed to add category');
+        }
+      } catch (error) {
+        console.error('Error adding category:', error);
+      }
     }
   };
 
@@ -33,32 +49,39 @@ function Categories() {
 
   return (
     <div className="categories">
-      <div className="container">
-        <div className="row">
-            <div className="form">
-                <input
-                  type="text"
-                  onChange={handleChange}
-                  value={formInputData.category}
-                  name="category"
-                  className="form-control"
-                  placeholder="Category"
-                />
-                <input
-                  type="text"
-                  onChange={handleChange}
-                  value={formInputData.subcategory}
-                  name="subcategory"
-                  className="form-control"
-                  placeholder="Subcategory"
-                />
-                
-                <input type="submit" onClick={handleSubmit} className="btn btn-primary" />
-            </div>
-            <Table tableData={tableData} handleDelete={handleDelete} />
+      <div className="container d-block">
+        <div className="card" style={{ width: "70%", height: "230px" }}>
+          <div className="form ps-5 ms-5">
+            <input
+              type="text"
+              onChange={handleChange}
+              value={formInputData.category}
+              name="category"
+              className="form-control mt-4 ms-5"
+              placeholder="Category"
+              style={{ width: "60%" }}
+            />
+            <input
+              type="text"
+              onChange={handleChange}
+              value={formInputData.subcategory}
+              name="subcategory"
+              className="form-control mt-4 ms-5"
+              style={{ width: "60%" }}
+              placeholder="Subcategory"
+            />
+            <input
+              type="submit"
+              onClick={handleSubmit}
+              className="btn btn-primary ms-5 mt-4"
+            />
           </div>
         </div>
+        <div className="pt-3 card" style={{ width: "70%", border: "none" }}>
+          <Table tableData={tableData} handleDelete={handleDelete} />
+        </div>
       </div>
+    </div>
   );
 }
 

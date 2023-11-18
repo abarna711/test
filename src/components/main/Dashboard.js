@@ -34,12 +34,6 @@ function Dashboard(){
             </div>
           </div>
           <hr></hr>
-           {/* <h1 className="head">Dashboard
-             <div className="settings">
-                <AiFillSetting/>
-              </div>
-            </h1>
-            <Link to='/admin'>Home</Link> */}
             
 
         <div className="container-fluid">

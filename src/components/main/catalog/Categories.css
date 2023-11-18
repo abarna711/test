@@ -1,11 +1,35 @@
-.Categories{
+/* styles.css (or your CSS file) */
+.table {
+    border-collapse: collapse;
+    /* margin-left: 10px ;
+    margin-right: 10px; */
+    margin-top: 40px !important;
+    width: 70%;
+  }
+  
+  .table th,
+  .table td {
+    border: 1px solid rgb(150, 149, 149);
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .table th {
+    background-color: #f2f2f2; /* Optional: Background color for table header */
+  }
+ 
+
+
+
+
+/* .Categories{
     height: 1000px;
     padding: 40px;
     margin-top: -16px;
     text-align: center;
     background-color: rgb(245, 245, 245);
   }
-.CategoriesTotal{
+ .CategoriesTotal{
     height: 800px;
     border-radius: 5px;
   
@@ -30,8 +54,7 @@
    margin-top: 20px;
    width: 30%;
    padding:6px;
-   /* margin-right:350px ; */
-   /* margin-left: 350px; */
+ 
 }
 .CategoriesInput{
    
@@ -100,14 +123,14 @@
     background-color: white;
    border: 1px solid red;
    
-   }
+   } 
 .Table{
     width: 100%;    
     border-collapse: collapse;
     border-top: 1px solid rgb(219, 219, 219);
     border-bottom: 1px solid rgb(219, 219, 219);
     margin-top: 100px;
-/* border: 1px solid black; */
+ border: 1px solid black; 
 
 }
 
@@ -115,8 +138,8 @@
     height: 40px;
     border:1px solid rgb(219, 219, 219);
 }
-.Th{
+.table th{
     background-color: rgba(255, 255, 255, 0.599);
     border: 1px solid rgb(219, 219, 219);
     color:grey;
-}
+} */

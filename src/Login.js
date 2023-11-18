@@ -30,7 +30,6 @@ const Login = ({ onLogin }) => {
 
   return (
     <div className="login container-fluid">
-
       <form onSubmit={handleLogin}>
        <p><IoIosLock className='me-1 mb-1'/>Please Enter Your Login Details</p>
         <hr></hr>

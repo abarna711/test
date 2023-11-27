@@ -99,25 +99,10 @@ form .col img{
 .form .col img:hover{
 background-color: rgb(119, 116, 116,.5);
 }
-.categories{
-  margin-top: 100px;
-  margin-left: 30%;
-}
-.table{
-  margin-top: 50px;
-} 
 
-/* dashbored */
-/* .Dashboard{
-  height: 1000px;
-  font-size: medium;
-  width: 100%;
-margin-top: -40px;
- background-color: rgb(245, 245, 245);
- margin-top: 100px;
 
-  
-} */
+
+
 .Dtop{
   height: 30px;
   font-size: xx-large;
@@ -180,7 +165,7 @@ color: white;
 
 }
 
-.Home{
+/* .Home{
 float: right;
 margin-right: 700px;
   font-size: medium;
@@ -279,5 +264,5 @@ i{
   padding-right: 10px;
   
 }
-
+ */
 

@@ -6,10 +6,8 @@ function Table({ tableData, handleDelete }) {
   if (tableData && Array.isArray(tableData.categories)) {
     const categories = tableData.categories;
 
-    
-
-    return (
-      <table className="table">
+    return(      
+    <table className="table">
         <thead>
           <tr>
             <th>S.N</th>
@@ -19,17 +17,17 @@ function Table({ tableData, handleDelete }) {
           </tr>
         </thead>
         <tbody>
-          {categories.map((data, index) => (
+          {categories.reverse().map((data, index) => (
             <tr key={index}>
               <td>{index + 1}</td>
               <td>{data.category}</td>
               <td>{data.subcategory}</td>
               <td>
                 <button
-                  className="btn btn-danger btn-sm"
-                  onClick={() => handleDelete(index)} // Pass the index to the handler
+                  className="btn btn-sm"
+                   onClick={() => handleDelete(data.id)}
                 >
-                  Delete
+                  Edit
                 </button>
               </td>
             </tr>

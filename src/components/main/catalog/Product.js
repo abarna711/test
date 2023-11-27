@@ -7,6 +7,7 @@ import { AiFillDelete } from "react-icons/ai";
 import { RxUpdate } from "react-icons/rx";
 import { Link } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
+import axios from 'axios';
 
 function Product() {
   const [products, setProducts] = useState([]);
@@ -23,6 +24,9 @@ function Product() {
   const [sortedProducts, setSortedProducts] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [subCategories, setSubCategories] = useState({});
+
 
 
   useEffect(() => {
@@ -86,7 +90,40 @@ function Product() {
     }
   };
   
+  useEffect(() => {
+    async function fetchCategories() {
+      try {
+        const response = await axios.get('http://localhost:3001/api/categories');
+        const uniqueCategories = removeDuplicateCategories(response.data.categories);
+        setCategories(uniqueCategories);
+  
+        const subCategoryMap = {};
+        uniqueCategories.forEach(category => {
+          subCategoryMap[category.category] = category.subcategories;
+        });
+        setSubCategories(subCategoryMap);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    }
+  
+    fetchCategories();
+  }, []); 
+  const removeDuplicateCategories= (categories) => {
+    const uniqueCategories = categories.reduce((unique, category) => {
+      const existing = unique.find((c) => c.category === category.category);
+      if (!existing) {
+        unique.push(category);
+      }
+      return unique;
+    }, []);
+    return uniqueCategories;
+  };
  
+  const getSubcategories = (selectedCategory) => {
+    const category = categories.find((cat) => cat.category === selectedCategory);
+    return category ? category.subcategories : [];
+  };
 
   return (
     <div className='Products'>
@@ -117,21 +154,64 @@ function Product() {
       <div className='ProductsTotal'>
       <div className='ProductsInputfield row'>
         <div className='Outline'>
-          <ul><div className=' Leftside col col-lg-6'> <li>
-        Category Name:<br/>
-        <input className="ProductsInput"
-          type="text"
-          placeholder="Category"
-          value={newProduct.mainCategory}
-          onChange={(e) => setNewProduct({ ...newProduct, mainCategory: e.target.value })}
-        /></li><li>
-        Sub-Category Name:<br/>
-        <input className="ProductsInput" 
-          type="text"
-          placeholder="Subcategory"
-          value={newProduct.subCategory}
-          onChange={(e) => setNewProduct({ ...newProduct, subCategory: e.target.value })}
-        /></li><li>
+          <ul><div className=' Leftside col col-lg-6'>
+          <li>
+    Category Name:<br />
+  <select
+  className="ProductsInput"
+  value={newProduct.mainCategory}
+  onChange={(e) => {
+    const selectedCategory = e.target.value;
+    const subcategories = getSubcategories(selectedCategory);
+    setNewProduct({
+      ...newProduct,
+      mainCategory: selectedCategory,
+      subCategory: '',
+    });
+    setSubCategories(subcategories);
+  }}
+>
+  <option value="">Select Category</option>
+  {(() => {
+    const options = [];
+    if (categories && categories.length > 0) {
+      for (let i = 0; i < categories.length; i++) {
+        options.push(
+          <option key={categories[i]._id} value={categories[i].category}>
+            {categories[i].category}
+          </option>
+        );
+      }
+    }
+    return options;
+  })()}
+</select>
+      </li>
+      Subcategory Name:<br />
+
+      <li><select
+      className="ProductsInput"
+      value={newProduct.subCategory}
+      onChange={(e) => setNewProduct({ ...newProduct, subCategory: e.target.value })}
+    >
+      <option value="">Select Subcategory</option>
+      {(() => {
+        const subCategories = getSubcategories(newProduct.mainCategory);
+        const options = [];
+        if (subCategories && subCategories.length > 0) {
+          for (let i = 0; i < subCategories.length; i++) {
+            options.push(
+              <option key={subCategories[i]} value={subCategories[i]}>
+                {subCategories[i]}
+              </option>
+            );
+          }
+        }
+        return options;
+      })()}
+    </select>
+</li>
+          <li>
         Product Name:<br/>
         <input className="ProductsInput"
           type="text"

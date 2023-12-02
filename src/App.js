@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Dashboard from './components/main/Dashboard';
 import Admin from './components/Admin';
 import './App.css'
-import Categories from './components/main/catalog/Categories'
+// import Categories from './components/main/catalog/Categories';
 import Product from './components/main/catalog/Product';
 import Layout from './components/main/design/Layout';
 import Theme from './components/main/design/Theme';
@@ -15,6 +15,8 @@ import Return from './components/main/sales/Return';
 
 import Login from './Login';
 import Filter from './components/main/catalog/Filter';
+import Categories from './components/main/catalog/Categories';
+import Editcategory from './components/main/catalog/Editcategory';
 
 function App(){
   return(
@@ -24,6 +26,7 @@ function App(){
         <Route path="/admin" element={<Admin/>}>
           <Route exact path='/admin' element={<Dashboard/>} />
           <Route path='/admin/catalog/categories' element={<Categories/>}/>
+          <Route path='/admin/catalog/categories/edit' element={<Editcategory/>}/>
           <Route path='/admin/catalog/product' element={<Product/>}/>
           <Route path='/admin/catalog/filter' element={<Filter/>}/>
           <Route path='/admin/design/layout' element={<Layout/>}/>

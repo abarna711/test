@@ -42,7 +42,7 @@ app.post("/api/categories", async (req, res) => {
     res.status(500).json({ message: "Error occurred while inserting data" });
   }
 });
-app.post("/api/categories/delete/:categoryId", async (req, res) => {
+app.delete("/api/categories/:categoryId", async (req, res) => {
   try {
     const deletedCategory = await Category.findByIdAndDelete(req.params.categoryId);
     if (!deletedCategory) {
@@ -55,7 +55,22 @@ app.post("/api/categories/delete/:categoryId", async (req, res) => {
   }
 });
 
+app.delete("/delete/categories", async (req, res) => {
+  const categoryIds = req.body.ids;
 
+  try {
+    const deletedCategories = await Category.deleteMany({ _id: { $in: categoryIds } });
+
+    if (!deletedCategories) {
+      return res.status(404).json({ message: "Categories not found" });
+    }
+
+    res.status(200).json({ message: "Categories deleted successfully", deletedCategories });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error occurred while deleting categories" });
+  }
+});
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {

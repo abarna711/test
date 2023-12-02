@@ -1,25 +1,3 @@
-.table {
-    border-collapse: collapse;
-    margin-top: 40px !important;
-    /* width: 40%; */
-  }
-  
-  .table th,
-  .table td {
-    border: 1px solid rgb(150, 149, 149);
-    /* padding: 8px; */
-    text-align: left;
-  }
-  
-  .table th {
-    background-color: #f2f2f2; 
-  }
-  .table button{
-    background-color: rgb(82, 82, 206);
-    color: white;
-  }
- 
-  /* categories */
   .categories{
     margin-top: 90px;
     overflow: hidden;
@@ -42,13 +20,12 @@
   margin-top: 20px;
 }
 .categories .main-table{
-  margin-left: 280px;
+  margin-left: 280px !important;
   margin-top: 30px;
 
 }
-/* .table-text .col:nth-child(1){
-  border-right:1px solid rgb(161, 161, 161) ;
-} */
+
+
 .table-text .col:nth-child(3){
   background-color: rgb(231, 71, 71);
   color: black;
@@ -61,8 +38,125 @@
 }
  .categories .table-text{
   border-bottom:1px solid rgb(150, 148, 148);
-  /* width: 100% !important; */
 }
-/* .categories .table-text .icon{
-  border-right: 1px solid gray;
+
+
+
+
+ .table {
+  border-collapse: collapse;
+  margin-top: 40px !important;
+  /* width: 40%; */
+}
+
+.table th,
+.table td {
+  border: 1px solid rgb(150, 149, 149);
+  /* padding: 8px; */
+  text-align: left;
+}
+
+.table th {
+  background-color: #f2f2f2; 
+}
+.table button{
+  background-color: rgb(82, 82, 206);
+  color: white;
+}
+
+/* categories */
+.categories{
+  margin-top: 90px;
+  overflow: hidden;
+}
+.categories .header{
+margin-left: 250px;
+}
+.categories .form
+{
+margin-left: 280px;
+padding-left: 200px;
+}
+.categories input{
+width: 60%;
+}
+.categories button{
+width: 30%;
+}
+.categories .tabledata{
+margin-top: 20px;
+}
+.categories .main-table{
+margin-left: 280px;
+margin-top: 30px;
+
+}
+/* .table-text .col:nth-child(1){
+border-right:1px solid rgb(161, 161, 161) ;
 } */
+.table-text .col:nth-child(3){
+background-color: rgb(231, 71, 71);
+color: black;
+border-radius: 5px;
+width: 40px;
+border-left: 1px solid rgb(172, 170, 170);
+height: 40px;
+padding-top: 3px;
+margin-top: 1px;
+}
+.categories .table-text{
+border-bottom:1px solid rgb(150, 148, 148);
+}
+
+/* .tabledata table tbody tr:nth-child(odd) {
+  background-color: #999999 !important;
+}
+
+.tabledata table tbody tr:nth-child(even) {
+  background-color: #ffffff !important; 
+} */
+
+/* .tabledata table tr:nth-of-type(odd) {
+  background-color:#808080 ;
+}
+
+.tabledata table tr:nth-of-type(even) {
+  background-color: green;
+} */
+
+/* editcategory */
+
+.add{
+  margin-top: 70px;
+  margin-left: -20px;
+  overflow: hidden;
+}
+.add .home3{
+  float: right;
+  width: 82.5%;
+  font-size: medium;
+  font-family: 'Lato', sans-serif;
+  padding: 20px;
+}
+.add Link{
+  text-decoration: none;
+  color: gray;
+  font-size: 50px;
+}
+.add .container{
+  margin-left: 30%;
+}
+.add .goback{
+  text-align: center;
+  color: white;
+  font-size: 20px;
+  padding-left: 20px;
+}
+.add .goback .icon{
+  width: 35px !important;
+  height: 35px !important;
+  color: white;
+  border-radius: 5px; 
+
+}
+

@@ -26,7 +26,9 @@ function App(){
         <Route path="/admin" element={<Admin/>}>
           <Route exact path='/admin' element={<Dashboard/>} />
           <Route path='/admin/catalog/categories' element={<Categories/>}/>
-          <Route path='/admin/catalog/categories/edit' element={<Editcategory/>}/>
+          {/* <Route path='/admin/catalog/categories/edit' element={<Editcategory/>}/> */}
+          <Route path="/admin/catalog/categories/edit/:categoryId" element={<Editcategory/>} />
+
           <Route path='/admin/catalog/product' element={<Product/>}/>
           <Route path='/admin/catalog/filter' element={<Filter/>}/>
           <Route path='/admin/design/layout' element={<Layout/>}/>

@@ -1,154 +1,101 @@
-import React, { useState, useEffect } from "react";
-import Table from "./Table";
+import { React, useState } from "react";
 import { Link } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
-import './Categories.css';
-import { TfiMenuAlt } from "react-icons/tfi";
-import { AiFillDelete } from "react-icons/ai";
+import { RiArrowGoBackFill } from "react-icons/ri";
 
 
-function Categories({tableData}) {
-  const [data, setData] = useState([]);
-  const [selectedRows, setSelectedRows] = useState([]);
-  const [formInputData, setFormInputData] = useState({
-    category: "",
-    subcategory: "",
-  });
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-  
-  const fetchData = async () => {
-    try {
-      const response = await fetch("http://localhost:3001/api/categories");
-      const data = await response.json();
-      setData(data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-    const handleChange = (evnt) => {
-    const newInput = { ...formInputData, [evnt.target.name]: evnt.target.value };
-    setFormInputData(newInput);
-  };
+function Editcategory() {
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = async (evnt) => {
-    evnt.preventDefault();
-    try {
-      const response = await fetch("http://localhost:3001/api/categories", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formInputData),
-      });
-      const newData = await response.json(); 
-      console.log(newData);
-     fetchData()
-      setFormInputData({ category: "", subcategory: "" });
-    } catch (error) {
-      console.error("Error sending data:", error);
-    }
-  };
-
-  const handleDeleteSelected = async (selectedIndices) => {
-    try {
-      if (data.length === 0) {
-        console.error("No data available for deletion.");
-        return;
-      }
-  
-      const selectedCategories = selectedIndices.map(index => {
-        if (data[index]) {
-          return data[index];
-        }
-        return null;
-      }).filter(category => category !== null);
-  
-      const categoryIdsToDelete = selectedCategories.map(category => categoryid);
-  
-      const response = await fetch("http://localhost:3001/api/categories/delete/${categoryId}", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ categoryIds: categoryIdsToDelete }),
-      });
-  
-      if (response.ok) {
-        setSelectedRows([]);
-        fetchData(); // Refresh data after deletion
-      } else {
-        console.error("Failed to delete categories");
-      }
-    } catch (error) {
-      console.error("Error deleting data:", error);
-    }
-  };
-  
-  
   return (
-    <div className="categories">
-      <div className="container-fulid">
+    <div className="add">
+      <div className="home3">
         <div className="header">
-            <div className="row">
+        <div className="row">
               <div className="col-lg-2 ps-4">
-                <h2>Categories</h2>
+                <h2>Catagories</h2>
               </div>
               <div className="col-lg-1 hometext pt-2">
-                <Link to="/admin" style={{color:"gray",fontSize:"20px",textDecoration:"none"}}>Home<IoIosArrowForward/></Link>
+                <Link to="/admin/catalog/categories" style={{color:"gray",fontSize:"20px",textDecoration:"none"}}>Home<IoIosArrowForward /></Link>
               </div>
               <div className="col-lg-1 text2 pt-2">
-                <Link to="/admin"style={{color:"blue",fontSize:"20px",textDecoration:"none"}}>Categories</Link>
+                <Link to="/admin/catalog/categories"style={{color:"blue",fontSize:"20px",textDecoration:"none"}}>Categories</Link>
               </div>
               <div className="col-lg-6"></div>
+              <div className="col-lg-2 ps-2 goback">
+                <Link to="/admin/catalog/categories" style={{textDecoration: 'none'}}   title="Go Back"> <RiArrowGoBackFill style={{backgroundColor:'blue'}} className="icon ps-1 pe-1 " /></Link>
               
-            </div>
-          </div>
-          <hr style={{borderBottomColor:"black"}}></hr>
-        <div className="row">
-            <div className="form card pt-5 pb-5 mt-3" style={{width:"80%"}}>
-              <div >
-                <input
-                  type="text"
-                  onChange={handleChange}
-                  value={formInputData.category}
-                  name="category"
-                  className="form-control"
-                  placeholder="Category"
-                />
-              </div><br/>
-              <div>
-                <input
-                  type="text"
-                  onChange={handleChange}
-                  value={formInputData.subcategory}
-                  name="subcategory"
-                  className="form-control"
-                  placeholder="Subcategory"
-                />
-              </div><br/>
-              <div >
-                <button type="submit" onClick={handleSubmit} className="btn btn-primary pt-2 pb-2" >Submit</button>
               </div>
+              <hr></hr>
             </div>
-           </div>
-           <div className="row">
-           <div className="main-table card" style={{width:"80%"}}>
-            <div className="row table-text">
-              <div className="col col-lg-3 pt-2"><h3><TfiMenuAlt className="icon pe-2 pb-1"/>CATEGORIES</h3></div>
-              <div className="col col-lg-8"></div>
-              <div className="col col-lg-1 mt-2" onClick={() => handleDeleteSelected(selectedRows)} ><AiFillDelete/></div>
-            </div>
-            <div className="tabledata">
-             <Table tableData={data} selectedRows={selectedRows} setSelectedRows={setSelectedRows}/>
-            </div>
-            </div>
-          </div>  
+           
+        </div>
+        </div>
+        
+      
+    
+
+      <div className="container ">
+        <div className="card" style={{ width: "70%", height: "300px" }}>
+          <div className="form ps-5 ms-5">
+            <form
+              action=""
+              method="POST"
+              encType="multipart/form-data"
+              style={{ width: "100%" }}
+            >
+              <input
+                type="text"
+                name="category"
+                className="form-control mt-4 ms-5"
+                placeholder="Category"
+                style={{ width: "60%", paddingLeft: "18px" }}
+                required
+              />
+              <br />
+
+              <input
+                type="text"
+              
+                name="subcategory"
+                className="form-control  mt-4 ms-5"
+                style={{ width: "60%", paddingLeft: "18px" }}
+                placeholder="Subcategory"
+                required
+              />
+
+              <button
+                type="button"
+                className="btn btn-primary ms-5 mt-4"
+              >
+                Submit
+              </button>
+              <div>
+              {error && (
+                <div
+                  className="alert alert-danger mt-2"
+                  style={{ width: "60%", marginLeft: "6%",textAlign:'center' }}
+                >
+                  {error}
+                </div>
+              )}
+              </div>
+              <div>
+              {success && 
+              <div 
+              className="alert alert-success mt-4" 
+              style={{width:"60%",marginLeft:"6%",textAlign:'center'}}>
+                Successfully Update!
+                </div>}
+                </div>
+            </form>
           </div>
         </div>
+      </div>
+    </div>
   );
 }
 
-export default Categories;
+export default Editcategory;

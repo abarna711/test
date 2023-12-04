@@ -197,7 +197,9 @@ function Categories() {
                         <td>{data.subcategory}</td>
                         <td>
                           <button className="btn btn-sm">
-                           <Link to='/admin/catalog/categories/edit'>Edit</Link>
+                           {/* <Link to='/admin/catalog/categories/edit'>Edit</Link> */}
+                           <Link to={`/admin/catalog/categories/edit/${data._id}`}>Edit</Link>
+
                           </button>
                         </td>
                       </tr>

@@ -27,7 +27,14 @@ app.get("/api/categories", async (req, res) => {
   }
 });
 
-
+app.get("/api/categories/:categoryId", async (req, res) => {
+  try {
+    const category = await Category.findById(req.params.categoryId);
+    res.json(category);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 app.post("/api/categories", async (req, res) => {
   const newUser = new Category({
     category: req.body.category,
@@ -42,18 +49,7 @@ app.post("/api/categories", async (req, res) => {
     res.status(500).json({ message: "Error occurred while inserting data" });
   }
 });
-app.delete("/api/categories/:categoryId", async (req, res) => {
-  try {
-    const deletedCategory = await Category.findByIdAndDelete(req.params.categoryId);
-    if (!deletedCategory) {
-      return res.status(404).json({ message: "Category not found" });
-    }
-    res.status(200).json({ message: "Category deleted successfully", deletedCategory });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error occurred while deleting category" });
-  }
-});
+
 
 app.delete("/delete/categories", async (req, res) => {
   const categoryIds = req.body.ids;
@@ -72,6 +68,27 @@ app.delete("/delete/categories", async (req, res) => {
   }
 });
 
+
+app.put("/api/categories/:categoryId", async (req, res) => {
+  try {
+    const { categoryId } = req.params;
+    const { category, subcategory } = req.body;
+
+    const updatedCategory = await Category.findByIdAndUpdate(
+      categoryId,
+      { category, subcategory },
+      { new: true } 
+    );
+
+    if (!updatedCategory) {
+      return res.status(404).json({ error: "Category not found" });
+    }
+
+    res.json(updatedCategory);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);

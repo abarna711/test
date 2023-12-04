@@ -1,18 +1,81 @@
-import { React, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 import { RiArrowGoBackFill } from "react-icons/ri";
 
-
-
 function Editcategory() {
+  const { categoryId } = useParams();
+  const [categoryData, setCategoryData] = useState({});
+  const [formData, setFormData] = useState({
+    category: "",
+    subcategory: "",
+  });
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
+
+  
+  useEffect(() => {
+    const fetchCategoryData = async () => {
+      try {
+        const response = await fetch(`http://localhost:3001/api/categories/${categoryId}`);
+        const responseData = await response.json();
+
+        if (response.ok) {
+          setCategoryData(responseData);
+          setFormData({
+            category: responseData.category || "",
+            subcategory: responseData.subcategory || "",
+          });
+        } else {
+          setError("Failed to fetch category data");
+        }
+      } catch (error) {
+        console.error("Error fetching category data:", error);
+        setError("Failed to fetch category data");
+      }
+    };
+
+    fetchCategoryData();
+  }, [categoryId]);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(`http://localhost:3001/api/categories/${categoryId}`, {
+        method: "PUT", // Assuming you use PUT for updates; adjust as per your API
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setSuccess(true);
+        setError("");
+        // Optionally, update state or perform other actions upon success
+      } else {
+        setSuccess(false);
+        setError("Failed to update category");
+      }
+    } catch (error) {
+      console.error("Error updating category:", error);
+      setSuccess(false);
+      setError("Failed to update category");
+    }
+  };
+
 
   return (
     <div className="add">
       <div className="home3">
-        <div className="header">
+      <div className="header">
         <div className="row">
               <div className="col-lg-2 ps-4">
                 <h2>Catagories</h2>
@@ -32,23 +95,21 @@ function Editcategory() {
             </div>
            
         </div>
-        </div>
-        
-      
-    
+      </div>
 
-      <div className="container ">
+      <div className="container">
         <div className="card" style={{ width: "70%", height: "300px" }}>
           <div className="form ps-5 ms-5">
             <form
-              action=""
-              method="POST"
+              onSubmit={handleSubmit}
               encType="multipart/form-data"
               style={{ width: "100%" }}
             >
               <input
                 type="text"
                 name="category"
+                value={formData.category}
+                onChange={handleChange}
                 className="form-control mt-4 ms-5"
                 placeholder="Category"
                 style={{ width: "60%", paddingLeft: "18px" }}
@@ -58,38 +119,30 @@ function Editcategory() {
 
               <input
                 type="text"
-              
                 name="subcategory"
-                className="form-control  mt-4 ms-5"
+                value={formData.subcategory}
+                onChange={handleChange}
+                className="form-control mt-4 ms-5"
                 style={{ width: "60%", paddingLeft: "18px" }}
                 placeholder="Subcategory"
                 required
               />
 
-              <button
-                type="button"
-                className="btn btn-primary ms-5 mt-4"
-              >
+              <button type="submit" className="btn btn-primary ms-5 mt-4">
                 Submit
               </button>
-              <div>
+
+              {/* Error and success messages */}
               {error && (
-                <div
-                  className="alert alert-danger mt-2"
-                  style={{ width: "60%", marginLeft: "6%",textAlign:'center' }}
-                >
+                <div className="alert alert-danger mt-2" style={{ width: "60%", marginLeft: "6%", textAlign: 'center' }}>
                   {error}
                 </div>
               )}
-              </div>
-              <div>
-              {success && 
-              <div 
-              className="alert alert-success mt-4" 
-              style={{width:"60%",marginLeft:"6%",textAlign:'center'}}>
-                Successfully Update!
-                </div>}
+              {success && (
+                <div className="alert alert-success mt-4" style={{ width: "60%", marginLeft: "6%", textAlign: 'center' }}>
+                  Successfully Updated!
                 </div>
+              )}
             </form>
           </div>
         </div>

@@ -252,7 +252,8 @@ function Product() {
        
         </div>
       </div>
-      <table className='ProductsTable'>
+<div className='card mt-5 mb-4' style={{width:"95%"}}>
+      <table className='ProductsTable' style={{}}>
         <thead className='ProductsHeader'>
           <tr className='ProductsTr'>
           <th className='ProductsTh'><input
@@ -299,6 +300,7 @@ function Product() {
           ))}
         </tbody>
       </table>
+     </div> 
       </div>
     </div>
   );

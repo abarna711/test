@@ -91,9 +91,7 @@ margin-left: 280px;
 margin-top: 30px;
 
 }
-/* .table-text .col:nth-child(1){
-border-right:1px solid rgb(161, 161, 161) ;
-} */
+
 .table-text .col:nth-child(3){
 background-color: rgb(231, 71, 71);
 color: black;
@@ -107,6 +105,7 @@ margin-top: 1px;
 .categories .table-text{
 border-bottom:1px solid rgb(150, 148, 148);
 }
+
 
 /* .tabledata table tbody tr:nth-child(odd) {
   background-color: #999999 !important;
@@ -160,3 +159,31 @@ border-bottom:1px solid rgb(150, 148, 148);
 
 }
 
+.categories-Pagination{
+  margin-top: 2%;
+  padding: 5px;
+  font-size: larger;
+  font-weight: 500;
+  margin-left: 30%;
+
+}
+.Previous-Button{
+  background-color: rgb(0, 128, 255);
+  border: none;
+  padding: 10px;
+  border-radius: 3px;
+  color: white;
+  font-weight: 200;
+  margin-right: 2%;
+  cursor: pointer;
+}
+.Next-Button{
+  background-color: rgb(0, 128, 255);
+  border: none;
+  padding: 10px;
+  border-radius: 3px;
+  color: white;
+  font-weight: 200;
+  margin-left: 2%;
+  cursor: pointer;
+}

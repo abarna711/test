@@ -3,42 +3,83 @@ import { Link} from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 import { TfiMenuAlt } from "react-icons/tfi";
 import { AiFillDelete } from "react-icons/ai";
+import { GrPrevious } from "react-icons/gr";
+import { GrNext } from "react-icons/gr";
 import "./Categories.css";
 import axios from "axios";
+import { BiSolidEditAlt } from "react-icons/bi";
+
 
 function Categories() {
   const [data, setData] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectAllChecked, setSelectAllChecked] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const itemsPerPage = 10;
 
-  const [formInputData, setFormInputData] = useState({
-    category: "",
-    subcategory: "",
-  });
-  
-  
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = currentPage * itemsPerPage;
+
+ 
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchData(); // eslint-disable-next-line
+  }, [currentPage]);
 
+  const fetchData = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/api/categories");
+      const responseData = await response.json();
 
- const fetchData = async () => {
-  try {
-    const response = await fetch("http://localhost:3001/api/categories");
-    const responseData = await response.json();
+      if (
+        responseData &&
+        responseData.categories &&
+        responseData.categories.length > 0
+      ) {
+        const sortedCategories = responseData.categories.sort((a, b) =>
+          b._id.localeCompare(a._id)
+        );
 
-    if (responseData && responseData.categories && responseData.categories.length > 0) {
-      const sortedCategories = responseData.categories.sort((a, b) => b._id.localeCompare(a._id));
-
-      setData({ categories: sortedCategories });
-    } else {
-      setData({ categories: [] });
+        setData(sortedCategories);
+        calculateTotalPages(sortedCategories.length);
+      } else {
+        setData({ categories: [] });
+        setTotalPages(1);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
     }
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
-};
+  };
 
+  const calculateTotalPages = (totalItems) => {
+    const totalPagesCount = Math.ceil(totalItems / itemsPerPage);
+    setTotalPages(totalPagesCount);
+  };
+
+
+//  const fetchData = async () => {
+//   try {
+//     const response = await fetch("http://localhost:3001/api/categories");
+//     const responseData = await response.json();
+
+//     if (responseData && responseData.categories && responseData.categories.length > 0) {
+//       const sortedCategories = responseData.categories.sort((a, b) => b._id.localeCompare(a._id));
+
+//       setData({ categories: sortedCategories });
+//     } else {
+//       setData({ categories: [] });
+//     }
+//   } catch (error) {
+//     console.error("Error fetching data:", error);
+//   }
+// };
+
+
+
+const [formInputData, setFormInputData] = useState({
+  category: "",
+  subcategory: "",
+});
 
   const handleChange = (evnt) => {
     const newInput = { ...formInputData, [evnt.target.name]: evnt.target.value };
@@ -168,10 +209,10 @@ function Categories() {
               </div>
             </div>
             <div className="tabledata">
-              {data && data.categories && data.categories.length > 0 ? (
+              {data  && data.length > 0 ? (
                 <table className="table">
                   <thead>
-                    <tr>
+                    <tr style={{backgroundColor:"gray"}}>
                       <th>
                          <input type="checkbox"   checked={selectAllChecked}
                       onChange={handleSelectAllChange}/>
@@ -183,8 +224,8 @@ function Categories() {
                     </tr>
                   </thead>
                   <tbody>
-                    {data.categories.map((data, index) => (
-                      <tr key={data._id} style={{ backgroundColor: index % 2 === 0 ? 'gray' : 'white' }}>
+                  {data.slice(startIndex, endIndex).map((data, index) => (
+                      <tr key={data._id} style={{ backgroundColor: index % 2 === 0 ? 'gray' : 'white' }} >
                         <td>
                           <input
                            type="checkbox"
@@ -197,8 +238,8 @@ function Categories() {
                         <td>{data.subcategory}</td>
                         <td>
                           <button className="btn btn-sm">
-                           {/* <Link to='/admin/catalog/categories/edit'>Edit</Link> */}
-                           <Link to={`/admin/catalog/categories/edit/${data._id}`}>Edit</Link>
+                           <Link to={`/admin/catalog/categories/edit/${data._id}`} style={{color:"white"}}> <BiSolidEditAlt />
+</Link>
 
                           </button>
                         </td>
@@ -212,8 +253,25 @@ function Categories() {
             </div>
           </div>
         </div>
-      </div>
+        <div className='categories-Pagination'>
+        <button
+            className='Previous-Button'
+            onClick={() => setCurrentPage(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            <GrPrevious/>
+          </button>
+          <span>{`Page ${currentPage} of ${totalPages}`}</span>
+          <button
+            className='Next-Button'
+            onClick={() => setCurrentPage(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          >
+            <GrNext/>
+          </button>       
+         </div>
     </div>
+  </div>
   );
 }
 
